@@ -1,66 +1,56 @@
-# PINN Simulation: 2D Heat Transfer in Food Engineering
+# PINN Simulation: 2D Heat Transfer in Food Processing
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Peter-X-Zhou/PINNs-Heat-Transfer/blob/main/PINNs_2D_Heat%20transfer_Nov%2023%2C%202025.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/zhouxu-lab/PINNs-Heat-Transfer/blob/main/PINN_2D_Heat_Transfer.ipynb)
 
-This repository contains the source code and simulation files for Chapter [Digital Twins and Physics-Informed Neural Networks in Food Processing] of the book [AI for Food Science]
+This repository implements a **Physics-Informed Neural Network (PINN)** to model transient 2D heat transfer in a food product during oven heating — without traditional mesh-based methods.
 
-It implements a Physics-Informed Neural Network (PINN) to model transient heat transfer in a 2D food product during heating
+Source code for the book chapter *"Digital Twins and Physics-Informed Neural Networks in Food Processing"* (AI for Food Science).
 
-## 📂 Project Overview
+---
 
-The goal of this simulation is to solve the **2D Heat Diffusion Equation** without using traditional mesh-based methods (like Finite Element Method). Instead, we use a neural network to approximate the temperature distribution T(x,y,t) by minimizing a loss function derived from the governing physical laws.
+## Physics Model
 
-### The Physics Model
-**Governing Equation:**
+**Governing equation:**
+
 $$\frac{\partial T}{\partial t} = \alpha \left( \frac{\partial^2 T}{\partial x^2} + \frac{\partial^2 T}{\partial y^2} \right)$$
 
-Where $\alpha$ is the thermal diffusivity, calculated as $\alpha = \frac{k}{\rho c_p}$.
-
-**Physical Parameters:**
-The material properties are approximated for a moist food product.
+where $\alpha = k / (\rho\, c_p)$ is the thermal diffusivity.
 
 | Parameter | Symbol | Value | Unit |
 | :--- | :---: | :---: | :--- |
-| Thermal Conductivity | $k$ | `0.45` | $W / (m \cdot K)$ |
-| Density | $\rho$ | `1050.0` | $kg / m^3$ |
-| Specific Heat | $c_p$ | `3300.0` | $J / (kg \cdot K)$ |
-| **Thermal Diffusivity** | $\alpha$ | `1.30e-7` | $m^2 / s$ |
-* **Domain:** 10 cm * 10 cm cross-section.
-* **Initial Condition (IC):** Uniform temperature of 25C at t=0.
-* **Boundary Conditions (BC):** 180C (Oven temperature) on all edges.
+| Thermal Conductivity | $k$ | 0.45 | W/(m·K) |
+| Density | $\rho$ | 1 050 | kg/m³ |
+| Specific Heat | $c_p$ | 3 300 | J/(kg·K) |
+| **Thermal Diffusivity** | $\alpha$ | 1.30 × 10⁻⁷ | m²/s |
 
-## 🚀 How to Run the Code
+- **Domain:** 10 cm × 10 cm cross-section
+- **Initial Condition:** Uniform 25 °C
+- **Boundary Conditions:** 180 °C on all edges
+- **Duration:** 60 minutes
 
-### Option 1: Google Colab (Recommended)
-You can run the simulation immediately in your browser without installing anything. Click the "Open in Colab" badge at the top of this page.
+## Quick Start
 
-### Option 2: Local Installation
-If you prefer to run this locally, ensure you have Python installed.
+### Option 1 — Google Colab (recommended)
 
-1.  Clone this repository:
-    ```bash
-    git clone [https://github.com/Peter-X-Zhou/PINNs-Heat-Transfer.git](https://github.com/Peter-X-Zhou/PINNs-Heat-Transfer.git)
-    cd PINNs-Heat-Transfer
-    ```
+Click the **Open in Colab** badge above. No local setup needed.
 
-2.  Install dependencies:
-    ```bash
-    pip install -r requirements.txt
-    ```
+### Option 2 — Local
 
-3.  Launch Jupyter:
-    ```bash
-    jupyter notebook
-    ```
+```bash
+git clone https://github.com/zhouxu-lab/PINNs-Heat-Transfer.git
+cd PINNs-Heat-Transfer
+pip install -r requirements.txt
+jupyter notebook PINN_2D_Heat_Transfer.ipynb
+```
 
-## 📊 Results
+## Results
 
-The PINN successfully reconstructs the temperature profile over 60 minutes of heating. The code produces:
-* **Loss Convergence Plots:** Demonstrating the minimization of PDE, IC, and BC residuals.
-* **Temperature Heatmaps:** Visualizing thermal penetration from the edges to the center.
-* **Center Point History:** A time-temperature profile of the geometric center (the "coldest point").
+The PINN reconstructs the temperature profile over 60 minutes of heating:
 
+- **Loss convergence** — PDE, IC, and BC residuals all decrease over training
+- **Temperature heatmaps** — Thermal penetration from edges to centre at 0, 10, 30, 60 min
+- **Centre-point history** — Time-temperature curve at the geometric centre (coldest point)
 
 ---
-*Author: [Xu Zhou]*
-*Contact: [xbz5414@psu.edu]*
+
+*Author: Xu Zhou — xbz5414@psu.edu*
