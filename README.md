@@ -63,4 +63,4 @@ The PINN successfully reconstructs the temperature profile over 60 minutes of he
 
 ---
 *Author: [Xu Zhou]*
-*Contact: [pxzhou@ucdavis.edu]*
+*Contact: [xbz5414@psu.edu]*
